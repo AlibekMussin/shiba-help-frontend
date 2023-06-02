@@ -19,7 +19,7 @@ const breakpointColumnsObj = {
 
 const getTotalPrice = (items) =>{
     return items.reduce((acc, item)=>{
-        return acc += item.price
+        return acc += item.attributes.price
     }, 0);
     
 }
@@ -58,8 +58,7 @@ const ProductList = () =>{
 
     const onAdd = (product) => {        
         const alreadyAdded = addedItems.find(item => item.id === product.id);
-        // console.log("alreadyAdded", alreadyAdded);
-        console.log("token", token);
+        // console.log("alreadyAdded", alreadyAdded);        
         let newItems = [];
 
         let data = {};
@@ -67,19 +66,15 @@ const ProductList = () =>{
         if (alreadyAdded) {
             
            data = {
-                "product_id": product.id,
-                "token": token,
-                "action": "removePosition",
-                "cookie_str": cookieStr
+                "product_id": product.id,                
+                "action": "removePosition"
             };
             newItems = addedItems.filter(item => item.id !== product.id);
         } else {
 
             data = {
                 "product_id": product.id,
-                "token": token,
-                "action": "add",
-                "cookie_str": cookieStr
+                "action": "add",                
             };
 
             console.log('else');
@@ -164,8 +159,7 @@ const ProductList = () =>{
                     ))}
                     <br></br>
                     {isButtonDisabled ? <div>Выберите товары для заказа</div> : (<Link className={'button set-order'} 
-                            to={`/order_detail/${cookieStr}?token=${token}`}
-                            >
+                            to={`/order_detail`}>
                             {orderButtonLabel}
                         </Link>)}                
                     
