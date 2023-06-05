@@ -66,7 +66,7 @@ const OrderDetail = (state) => {
    
     useEffect(() => {
         console.log('555');
-        // console.log('cookieStr', cookieStr);
+        
         let cleanup = false;        
         console.log('data', dataFromStore);
         setProducts(dataFromStore);
@@ -82,22 +82,22 @@ const OrderDetail = (state) => {
     }, []);
 
     useEffect(() => {
-        setNewTotal(total);
-        setIsDeliveryNeed(delivery>0);
+        setNewTotal(total);        
         // console.log('total', total);
         // console.log('newTotal', newTotal);
     }, [total]);
 
     const handleSubmit = () => {
         setIsSubmitLoading(true);
+        console.log(JSON.stringify(dataFromStore));
         const data = {
-          lastName: lastName,
-          firstName: firstName,
-          phoneNumber: phoneNumber,
-          data: dataFromStore
+          last_name: lastName,
+          first_name: firstName,
+          phone_number: phoneNumber,
+          data: JSON.stringify(dataFromStore)
         };        
     
-        fetch(backUrl+'/make-order', {
+        fetch(backUrl+'/api/orders', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',            
