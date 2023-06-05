@@ -38,7 +38,7 @@ const ProductList = () =>{
         (async () => {
             try {
                 setIsLoading(true);
-                const response = await fetch('http://localhost:1337/api/products?populate=*');
+                const response = await fetch('https://help.shiba.kz/api/products?populate=*');
                 const jsonData = await response.json();
                 if (!cleanup) {
                     console.log(jsonData.data);
