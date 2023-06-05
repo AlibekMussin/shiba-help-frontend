@@ -90,11 +90,15 @@ const OrderDetail = (state) => {
     const handleSubmit = () => {
         setIsSubmitLoading(true);
         console.log(JSON.stringify(dataFromStore));
+        let tg_user_id = '16712';
+        if (!user?.id)
+            tg_user_id = user?.id;
         const data = {
           last_name: lastName,
           first_name: firstName,
           phone_number: phoneNumber,
-          data: JSON.stringify(dataFromStore)
+          tg_user_id: '',
+          products: JSON.stringify(dataFromStore)
         };        
     
         fetch(backUrl+'/api/orders', {
@@ -103,7 +107,7 @@ const OrderDetail = (state) => {
             'Content-Type': 'application/json',            
           },
           credentials: 'include',
-          body: JSON.stringify(data),
+          body: JSON.stringify({"data":data}),
         })
           .then((response) => {
             return response.json();
