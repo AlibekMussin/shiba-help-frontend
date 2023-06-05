@@ -1,0 +1,45 @@
+.order-detail{
+    padding: 10px;
+}
+.inputs-form{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    padding-top: 15px;    
+}
+.order-table{
+    border-collapse: collapse;
+}
+.order-table tr td, .order-table thead th, .order-table tfoot th{
+    padding: 5px;
+    border: 1px solid lightgray;
+}
+.order-table tfoot th{
+    text-align: left;
+}
+label{   
+    margin-top: 5px;
+}
+.input {    
+    min-width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+}
+.input-mini{
+    min-width: 50%;
+}
+.radio-inputs{
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+.radio-inputs input{
+    margin-right:5px;
+}
+.delivery-inputs{
+    margin-top: 15px;
+}
+button.button:disabled{
+    background-color: grey;
+    color: white;
+    cursor: not-allowed;
+}

@@ -9,6 +9,9 @@ import 'react-accessible-accordion/dist/fancy-example.css';
 import Masonry from 'react-masonry-css';
 import { Link } from 'react-router-dom';
 
+import { useNavigate } from "react-router-dom";
+import Button from "../Button/Button";
+
 
 const breakpointColumnsObj = {
   default: 3, // Количество колонок по умолчанию
@@ -26,12 +29,22 @@ const getTotalPrice = (items) =>{
 
 const ProductList = () =>{
     const [addedItems, setAddedItems ] = useState([]);
+    const navigate = useNavigate();
     const {tg, queryId} = useTelegram();
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);    
     const [orderButtonLabel, setOrderButtonLabel] = useState('Оформить заказ');
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+    
     const backUrl = process.env.REACT_APP_BACK_URL;
+
+    const handleCheckout = () => {
+        console.log('handleCheckout');
+        // Обработка выбранных товаров и их количества
+        // Перенаправление на страницу оформления заказа с передачей выбранных товаров и их количества через состояние маршрута
+        console.log(addedItems);
+        navigate('/order_detail', { state: addedItems });
+      };
 
     useEffect(() => {
         console.log('111');
@@ -81,28 +94,8 @@ const ProductList = () =>{
             console.log('else');
             newItems = [...addedItems, product];
         }
-
-        fetch('https://shiba.kz/api/cart', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',                    
-                },
-                body: JSON.stringify(data),
-                credentials: 'include'
-            }).then(response => {
-                if (!response.ok) {
-                    throw new Error('Request failed');
-                }
-                console.log(response.status);
-                // Additional response handling, if necessary
-                console.log('Request successful');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-
         setAddedItems(newItems);
-        console.log(newItems);
+        // console.log(newItems);
 
         if (newItems.length === 0) {
             setIsButtonDisabled(true);
@@ -159,15 +152,12 @@ const ProductList = () =>{
                     </AccordionItem>
                     ))}
                     <br></br>
-                    {isButtonDisabled ? <div>Выберите товары для заказа</div> : (<Link className={'button set-order'} 
-                            to={`/order_detail`}>
+                    {isButtonDisabled ? <div>Выберите товары для заказа</div> : (<Button className={'button set-order'} 
+                        onClick={handleCheckout}>
                             {orderButtonLabel}
-                        </Link>)}                
+                        </Button>)}
                     
                 </Accordion>
-
-                        
-                
         )}</div>
       );
 }
