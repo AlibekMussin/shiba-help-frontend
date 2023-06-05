@@ -10,7 +10,7 @@ import { faEye, faCartPlus } from '@fortawesome/free-solid-svg-icons';
 const ProductItem = ({product, className, onAdd}) => {
     const [isButtonPressed, setIsButtonPressed] = useState(false);
     const [isFullScreen, setIsFullScreen] = useState(false);
-    const backUrl = 'https://help.shiba.kz';
+    const backUrl = process.env.REACT_APP_BACK_URL;
 
     const openFullScreen = () => {
         setIsFullScreen(true);

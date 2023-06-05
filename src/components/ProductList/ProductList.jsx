@@ -31,6 +31,7 @@ const ProductList = () =>{
     const [isLoading, setIsLoading] = useState(false);    
     const [orderButtonLabel, setOrderButtonLabel] = useState('Оформить заказ');
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+    const backUrl = process.env.REACT_APP_BACK_URL;
 
     useEffect(() => {
         console.log('111');
@@ -38,7 +39,7 @@ const ProductList = () =>{
         (async () => {
             try {
                 setIsLoading(true);
-                const response = await fetch('https://help.shiba.kz/api/products?populate=*');
+                const response = await fetch(backUrl+'/api/products?populate=*');
                 const jsonData = await response.json();
                 if (!cleanup) {
                     console.log(jsonData.data);
