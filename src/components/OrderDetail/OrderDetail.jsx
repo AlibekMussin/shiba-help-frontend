@@ -125,7 +125,7 @@ const OrderDetail = (state) => {
                 queryId,
             };
             
-            fetch('https://shiba.kz:8012/make-order', {
+            fetch('https://bothelp.shiba.kz/make-order', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
