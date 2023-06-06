@@ -43,7 +43,7 @@ const ProductDetail = () => {
         tg.BackButton.show();
         tg.onEvent('backButtonClicked', function() {          
           console.log("Нажата кнопка 'назад'");          
-          window.location.href = 'https://help.shiba.kz';          
+          window.location.href = 'https://admin.shiba.kz';          
         });
     
     }, []);
