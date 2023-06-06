@@ -78,7 +78,7 @@ const OrderList = (state) => {
         (async () => {
             try {
                 setIsLoading(true);
-                const response = await fetch(backUrl+'/api/orders?filters[state][$eq]='.defaultState,
+                const response = await fetch(backUrl+'/api/orders?filters[state][$eq]='+defaultState,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
