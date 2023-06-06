@@ -4,8 +4,11 @@ import { useTelegram } from './hooks/useTelegram';
 import { Route, Routes } from 'react-router-dom';
 import ProductList from './components/ProductList/ProductList';
 import OrderDetail from './components/OrderDetail/OrderDetail';
+
 import ProductDetail from './components/ProductDetail/ProductDetail';
 
+import OrderList from './components/OrderList/OrderList';
+import Login from './components/Login/Login';
 
 function App() {
 
@@ -21,6 +24,8 @@ function App() {
         <Route index element={<ProductList />}/>
         <Route path={'order_detail'} element={<OrderDetail />}/>
         <Route path={"/product/:productId"} element={<ProductDetail/>} />
+        <Route path={'orders'} element={<OrderList />}/>
+        <Route path={'login'} element={<Login />}/>
       </Routes>
     </div>
   );

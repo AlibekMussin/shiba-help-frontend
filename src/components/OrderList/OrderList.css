@@ -1,0 +1,19 @@
+.orders-table{
+    border-collapse: collapse;
+}
+.orders-table tr td, .orders-table thead th, .orders-table tfoot th{
+    padding: 5px;
+    border: 1px solid lightgray;
+}
+.orders-table tfoot th{
+    text-align: left;
+}
+.button{        
+    width: 10%!important;
+    box-sizing: inherit!important;
+    margin: 5px;
+}
+.textarea{
+    width:600px;
+    height:100px;
+}

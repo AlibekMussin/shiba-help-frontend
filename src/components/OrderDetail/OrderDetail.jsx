@@ -15,15 +15,13 @@ const OrderDetail = (state) => {
     const [products, setProducts] = useState([]);
     const [total, setTotal] = useState(0);
     const [newTotal, setNewTotal] = useState(0);
-    const [totalFirst, setTotalFirst] = useState(0);    
-    const [delivery, setDelivery] = useState(0);
+    const [totalFirst, setTotalFirst] = useState(0);        
     const {tg, user, queryId} = useTelegram();
     const [lastName, setLastName] = useState(user?.last_name);
     const [firstName, setFirstName] = useState(user?.first_name);
-    const [phoneNumber, setPhoneNumber] = useState('');
-    
+    const [phoneNumber, setPhoneNumber] = useState('');    
     const [isFormValid, setIsFormValid] = useState(false);
-    const [isDeliveryNeed, setIsDeliveryNeed] = useState(false);
+    
     const searchParams = new URLSearchParams(location.search);
     const token = searchParams.get('token');
     const dataFromStore = location.state;
@@ -89,17 +87,18 @@ const OrderDetail = (state) => {
 
     const handleSubmit = () => {
         setIsSubmitLoading(true);
-        console.log(JSON.stringify(dataFromStore));
+        // console.log(JSON.stringify(dataFromStore));
         let tg_user_id = '16712';
-        if (!user?.id)
+        if (user?.id)
             tg_user_id = user?.id;
         const data = {
           last_name: lastName,
           first_name: firstName,
           phone_number: phoneNumber,
-          tg_user_id: '',
+          tg_user_id: tg_user_id,
           products: JSON.stringify(dataFromStore)
-        };        
+        }; 
+        console.log('1');
     
         fetch(backUrl+'/api/orders', {
           method: 'POST',
@@ -110,10 +109,41 @@ const OrderDetail = (state) => {
           body: JSON.stringify({"data":data}),
         })
           .then((response) => {
+            console.log('2');
+
             return response.json();
         }).then((tnxJson) => {                
+            console.log('3');
             setIsLoading(false);
-            setIsSubmitLoading(false);     
+            setIsSubmitLoading(false);   
+            console.log('order', tnxJson.data.attributes.order);
+            
+            const data_for_bot = {
+                "order": tnxJson.data.attributes.order,
+                "status":"OK",
+                products,
+                queryId,
+            };
+            
+            fetch('https://bothelp.shiba.kz/make-order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data_for_bot)
+                })
+                .then(response_bot => {
+                    if (!response_bot.ok) {
+                    throw new Error('Request failed');
+                    }
+                    // Additional response handling, if necessary
+                    console.log('Request successful');
+                })
+                .catch(error_bot => {
+                    console.error('Error:', error_bot);
+                });
+
+
             })
             .catch((error) => {
             // Обработка ошибок
@@ -153,14 +183,7 @@ const OrderDetail = (state) => {
                         <th colSpan={2}>Сумма</th>
                         <td>{totalFirst>0 ? <div>{totalFirst}</div> : <div>0</div>} </td>
                         <td></td>
-                    </tr>                
-                    {isDeliveryNeed ? <tr>
-                        <th colSpan={2}>Доставка{delivery>0 ? <div style={{fontWeight:'normal'}}><br></br>
-                        <em>*Если сумма заказа превысит 25000 ₸,<br></br> то доставка курьером/ Казпочтой<br></br> будет бесплатной.</em></div>: <div></div>}</th>
-                        <td>{delivery>0 ? <div>{delivery}
-                        </div> : <div>Бесплатно</div>} </td>
-                        <td></td>
-                    </tr> : <></>}
+                    </tr>                                    
                     <tr>
                         <th colSpan={2}>К оплате</th>
                         <td>{newTotal}</td>
