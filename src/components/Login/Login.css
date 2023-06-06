@@ -19,7 +19,7 @@ label{
     margin-top: 5px;
 }
 .button{        
-    width: 50%;    
+    width: 50%!important;    
     display: inline-flex;
     -webkit-box-align: center;
     align-items: center;
