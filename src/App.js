@@ -4,6 +4,8 @@ import { useTelegram } from './hooks/useTelegram';
 import { Route, Routes } from 'react-router-dom';
 import ProductList from './components/ProductList/ProductList';
 import OrderDetail from './components/OrderDetail/OrderDetail';
+import ProductDetail from './components/ProductDetail/ProductDetail';
+
 
 function App() {
 
@@ -18,6 +20,7 @@ function App() {
       <Routes>
         <Route index element={<ProductList />}/>
         <Route path={'order_detail'} element={<OrderDetail />}/>
+        <Route path={"/product/:productId"} element={<ProductDetail/>} />
       </Routes>
     </div>
   );
