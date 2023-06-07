@@ -62,8 +62,7 @@ const OrderList = (state) => {
     };
     
 
-    const dateFormat=(date)=>{
-        const dateString = '2023-06-06T06:50:44.022Z';
+    const dateFormat=(dateString)=>{        
         const dateObj = new Date(dateString);
         const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
         const formattedDate = dateObj.toLocaleString('ru-RU', options);
@@ -120,7 +119,9 @@ const OrderList = (state) => {
                         </thead>
 
                         <tbody>{
-                                data.map((item) => (
+                                data.map((item) => {
+                                    let total = 0;
+                                    return (
                                     <tr>
                                         <td>{item.attributes.order}</td>
                                         <td>{dateFormat(item.attributes.createdAt)}</td>
@@ -131,23 +132,28 @@ const OrderList = (state) => {
                                                 <thead>
                                                     <th></th>
                                                     <th>Товар</th>
-                                                    <th>Цена</th>                                                    
-                                                </thead>{
-                                                item.attributes.products.map((product) => (
-                                                    <tr>
+                                                    <th>Цена</th>
+                                                    <th>Кол-во</th>
+                                                </thead>{                                                
+                                                item.attributes.products.map((product) => {
+                                                    total+=product.attributes.price*product.quantity;
+                                                    return (<tr>
                                                         <td></td>
                                                         <td>{product.attributes.title}</td>
                                                         <td>{product.attributes.price}</td>
-                                                    </tr>
-                                                    ))}
+                                                        <td>{product.quantity}</td>
+                                                    </tr>)
+                                                    })}
                                             </table>
                                         </td>
                                         <td>{item.attributes.state}</td>
+                                        <td>{total}</td>
                                         <td>
                                             <button onClick={() => handleOpenModal(item)}>Завершить заказ</button>
                                         </td>
                                     </tr>
-                                ))
+                                );
+                            })
                             }
                         </tbody>
                     </table>
