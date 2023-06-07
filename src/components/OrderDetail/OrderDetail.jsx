@@ -26,6 +26,7 @@ const OrderDetail = (state) => {
     const token = searchParams.get('token');
     const dataFromStore = location.state;
     const backUrl = process.env.REACT_APP_BACK_URL;
+    const [quantities, setQuantities] = useState({});
     
 
     // console.log('token', token);
@@ -87,7 +88,14 @@ const OrderDetail = (state) => {
 
     const handleSubmit = () => {
         setIsSubmitLoading(true);
-        // console.log(JSON.stringify(dataFromStore));
+        
+        const updatedDataFromStore = dataFromStore.map((product) => {
+            return {
+              ...product,
+              quantity: quantities[product.id] || 0,
+            };
+          });
+
         let tg_user_id = '16712';
         if (user?.id)
             tg_user_id = user?.id;
@@ -96,7 +104,7 @@ const OrderDetail = (state) => {
           first_name: firstName,
           phone_number: phoneNumber,
           tg_user_id: tg_user_id,
-          products: JSON.stringify(dataFromStore)
+          products: JSON.stringify(updatedDataFromStore)
         }; 
         console.log('1');
     
@@ -121,7 +129,7 @@ const OrderDetail = (state) => {
             const data_for_bot = {
                 "order": tnxJson.data.attributes.order,
                 "status":"OK",
-                products,
+                "products": updatedDataFromStore,
                 queryId,
             };
             
@@ -151,7 +159,35 @@ const OrderDetail = (state) => {
             setIsSubmitLoading(false);
           });
       };
+    const [quantity, setQuantity] = useState(1);
 
+    const incrementQuantity = (productId) => {
+        setQuantities((prevQuantities) => ({
+          ...prevQuantities,
+          [productId]: (prevQuantities[productId] || 1) + 1,
+        }));
+      };
+    
+    const decrementQuantity = (productId) => {
+    setQuantities((prevQuantities) => ({
+        ...prevQuantities,
+        [productId]: Math.max((prevQuantities[productId] || 1) - 1, 0),
+    }));
+    };
+
+
+    const updateTotal = () => {
+        let commonTotal = 0;
+        for (const product of products) {
+          const quantity = quantities[product.id] || 1;
+          commonTotal += product.attributes.price * quantity;
+        }
+        setNewTotal(commonTotal);
+    };
+
+    useEffect(() => {
+        updateTotal();
+      }, [quantities]);
 
     return (
         <div className="order-detail">
@@ -166,31 +202,39 @@ const OrderDetail = (state) => {
                         <th>Наименование</th>
                         <th>Цена</th>
                         <th>Количество</th>
+                        <th>Сумма за товар</th>
                     </tr>
                 </thead>
                 <tbody>
-                {products.map(item => (
+                {products.map(item => {
+
+                    const quantityOneProduct = quantities[item.id] || 1;
+                    const totalOneProduct = item.attributes.price * quantityOneProduct;
+
+                    return (
                     <tr key={item.id}>
-                    <td><img style={{height:'70px'}} src={backUrl+item.attributes.photos.data[0].attributes.url} alt="Product" /></td>
-                    <td>{item.attributes.title}</td>
-                    <td>{item.attributes.price}</td>
-                    <td>1</td>
-                    </tr>
-                ))}
+                        <td><img style={{height:'70px'}} src={backUrl+item.attributes.photos.data[0].attributes.url} alt="Product" /></td>
+                        <td>{item.attributes.title}</td>
+                        <td>{item.attributes.price} тнг</td>
+                        <td>                        
+                            <div className="quantity-container">
+                                <button className="quantity-button quantity-button-left" onClick={() => decrementQuantity(item.id)}>-</button>
+                                <div className="quantity">{quantityOneProduct}</div>
+                                <button className="quantity-button quantity-button-right" onClick={() => incrementQuantity(item.id)}>+</button>
+                            </div>
+                        </td>
+                        <td>{totalOneProduct} тнг</td>
+                    </tr>);
+                })}
                 </tbody>
-                <tfoot>
+                <tfoot>                    
                     <tr>
-                        <th colSpan={2}>Сумма</th>
-                        <td>{totalFirst>0 ? <div>{totalFirst}</div> : <div>0</div>} </td>
-                        <td></td>
-                    </tr>                                    
-                    <tr>
-                        <th colSpan={2}>К оплате</th>
-                        <td>{newTotal}</td>
-                        <td></td>
+                        <th colSpan={4}>К оплате</th>
+                        <th style={{textAlign: 'center'}}>{newTotal} тнг</th>                        
                     </tr>
                 </tfoot>
             </table>
+
             <div className="inputs-form">
                 <h4>Данные получателя</h4>
                 <div>
@@ -211,7 +255,7 @@ const OrderDetail = (state) => {
                     value={phoneNumber}
                     onChange={handlePhoneNumberChange}
                     mask="+7 (999) 999-99-99"
-                    placeholder="+7 (705) 456-75-54"
+                    placeholder="+7 (777) 777-77-77"
                     required
                     />
                 </div>

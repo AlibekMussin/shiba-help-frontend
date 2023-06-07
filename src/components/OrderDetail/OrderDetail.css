@@ -43,3 +43,39 @@ button.button:disabled{
     color: white;
     cursor: not-allowed;
 }
+.quantity-button {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    margin-right: 5px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid gray;
+    background-color: white;
+    cursor: pointer;
+    margin-right: 0px!important;
+  }
+  .quantity-button-left{
+    border-radius: 5px 0 0 5px;
+  }
+  .quantity-button-right{
+    border-radius: 0 5px 5px 0;
+  }
+  
+  .quantity {
+    width: 30px;
+    height: 29px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid gray;
+    background-color: white;
+  }
+
+.quantity-container {
+    display: flex;
+    align-items: center;
+    border: none;
+  }
