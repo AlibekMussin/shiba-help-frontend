@@ -108,7 +108,7 @@ const OrderList = (state) => {
                     <table className="orders-table">
                         <thead>
                             <tr>
-                                <th></th>
+                                <th>Номер заказа</th>
                                 <th>Дата заказа</th>
                                 <th>ФИО заказчика</th>
                                 <th>Телефон</th>
