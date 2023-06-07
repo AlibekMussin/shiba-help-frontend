@@ -147,7 +147,7 @@ const OrderList = (state) => {
                                             </table>
                                         </td>
                                         <td>{item.attributes.state}</td>
-                                        <td>{total}</td>
+                                        <th>{total}</th>
                                         <td>
                                             <button onClick={() => handleOpenModal(item)}>Завершить заказ</button>
                                         </td>
