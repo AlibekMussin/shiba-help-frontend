@@ -21,25 +21,15 @@
     font-size: 0.8em;
 }
 
-.add-btn {
-    width: 45%;
+.add-btn, .view-btn {
+    width: 35%;
+    margin: 4px;
 }
 .add-btn.pressed {
     background-color:rgb(233,150,122)!important;
+    margin: 4px;
 }
 
-.link{
-    padding: 5px 10px;
-    background:var(--tg-theme-button-color);
-    color: var(--tg-theme-button-text-color);
-    border: none;
-    outline: none;
-    cursor: pointer;
-    text-decoration: none;
-    margin-right: 2px;
-    width: 45%;
-    text-align: center;
-}
 .buttons_div{
     margin-top: auto;
     display: flex;

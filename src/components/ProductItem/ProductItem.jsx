@@ -6,11 +6,13 @@ import './ProductItem.css';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faCartPlus } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from "react-router-dom";
 
 const ProductItem = ({product, className, onAdd}) => {
     const [isButtonPressed, setIsButtonPressed] = useState(false);
     const [isFullScreen, setIsFullScreen] = useState(false);
     const backUrl = process.env.REACT_APP_BACK_URL;
+    const navigate = useNavigate();
 
     const openFullScreen = () => {
         setIsFullScreen(true);
@@ -29,6 +31,10 @@ const ProductItem = ({product, className, onAdd}) => {
         onAdd(product);
     }
 
+    const seeProduct = (productId) => {
+        navigate('/product/'+productId);
+    }
+
     const buttonText = isButtonPressed ? 'Добавлено' : 'В корзину';
     const buttonClassName = isButtonPressed ? 'add-btn pressed' : 'add-btn';
 
@@ -41,14 +47,15 @@ const ProductItem = ({product, className, onAdd}) => {
             <div className={'title'}>{product.attributes.title}</div>
             <div className={'description'}>{product.attributes.description}</div>
             <div className={'price'}>
-                <span>Стоимость: <b>{product.attributes.price}</b></span>
+                <span>Стоимость: <b>{product.attributes.price} тнг</b></span>
             </div>
             
             <div className="buttons_div">
-                <Link className={'link'} to={`/product/${product.id}`} product={product.id}>
+                
+                <Button className={'view-btn'} onClick={() => seeProduct(product.id)}>
                     <FontAwesomeIcon icon={faEye} />
-                    {/* просмотр */}
-                </Link>
+                    {/* в корзину */}
+                </Button>
                 <Button className={buttonClassName} onClick={onAddHandler}>
                     <FontAwesomeIcon icon={faCartPlus} />
                     {/* в корзину */}
