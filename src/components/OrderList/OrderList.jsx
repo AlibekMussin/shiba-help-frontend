@@ -114,6 +114,7 @@ const OrderList = (state) => {
                                 <th>Телефон</th>
                                 <th>Заказ</th>
                                 <th>Статус</th>
+                                <th>Общая стоимость заказа</th>
                                 <th>Изменить статус</th>
                             </tr>
                         </thead>
