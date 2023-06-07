@@ -22,8 +22,9 @@
 }
 
 .add-btn, .view-btn {
-    width: 35%;
+    width: 25%!important;
     margin: 4px;
+    min-width: 10px!important;
 }
 .add-btn.pressed {
     background-color:rgb(233,150,122)!important;
