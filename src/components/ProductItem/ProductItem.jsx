@@ -40,7 +40,9 @@ const ProductItem = ({product, className, onAdd}) => {
 
     return (
         <div className={'product ' + className}>
-            <img className={'img'} src={backUrl+product.attributes.photos.data[0].attributes.url}  onClick={openFullScreen}/>
+            <div className={'img_div'} style={{backgroundImage:'url('+backUrl+product.attributes.photos.data[0].attributes.url+')', backgroundSize: 'cover'}}
+            ></div>
+            {/* <img className={'img'} src={backUrl+product.attributes.photos.data[0].attributes.url}  onClick={openFullScreen}/> */}
             {/* {isFullScreen && (
             <FullScreenProduct imageUrl={product.image} onClose={closeFullScreen} />
             )} */}

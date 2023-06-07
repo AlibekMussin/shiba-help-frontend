@@ -16,6 +16,11 @@
     margin: 0 auto;
     background: var(--tg-theme-button-color);
 }
+.img_div {    
+    width: 100%;
+    height: 250px;  
+    margin: 0 auto;    
+}
 
 .description {
     font-size: 0.8em;
