@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useHistory  } from 'react-router-dom';
+import { useNavigate, useParams, useHistory  } from 'react-router-dom';
 import { useTelegram } from "../../hooks/useTelegram"; 
 import Spinner from "../Spinner/Spinner";
 import SwiperCore, { Navigation, Pagination } from 'swiper';
@@ -18,6 +18,7 @@ const ProductDetail = () => {
     const {tg} = useTelegram();
     const [isLoading, setIsLoading] = useState(true);
     const backUrl = process.env.REACT_APP_BACK_URL;
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -43,7 +44,8 @@ const ProductDetail = () => {
         tg.BackButton.show();
         tg.onEvent('backButtonClicked', function() {          
           console.log("Нажата кнопка 'назад'");          
-          window.location.href = 'https://admin.shiba.kz';          
+          navigate('/');
+                   
         });
     
     }, []);
