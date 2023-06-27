@@ -39,8 +39,7 @@ label{
     margin-top: 15px;
 }
 button.button:disabled{
-    background-color: grey;
-    color: white;
+    background-color: grey;    
     cursor: not-allowed;
 }
 .quantity-button {
@@ -52,8 +51,7 @@ button.button:disabled{
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid gray;
-    background-color: white;
+    border: 1px solid gray;    
     cursor: pointer;
     margin-right: 0px!important;
   }
@@ -70,8 +68,7 @@ button.button:disabled{
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid gray;
-    background-color: white;
+    border: 1px solid gray;    
   }
 
 .quantity-container {
