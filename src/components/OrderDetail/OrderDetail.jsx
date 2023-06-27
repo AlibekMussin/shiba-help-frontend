@@ -92,7 +92,7 @@ const OrderDetail = (state) => {
         const updatedDataFromStore = dataFromStore.map((product) => {
             return {
               ...product,
-              quantity: quantities[product.id] || 0,
+              quantity: quantities[product.id] || 1,
             };
           });
 
@@ -171,7 +171,7 @@ const OrderDetail = (state) => {
     const decrementQuantity = (productId) => {
     setQuantities((prevQuantities) => ({
         ...prevQuantities,
-        [productId]: Math.max((prevQuantities[productId] || 1) - 1, 0),
+        [productId]: Math.max((prevQuantities[productId] || 1) - 1, 1),
     }));
     };
 
@@ -229,8 +229,9 @@ const OrderDetail = (state) => {
                 </tbody>
                 <tfoot>                    
                     <tr>
-                        <th colSpan={4}>К оплате</th>
+                        <th colSpan={2}>К оплате</th>
                         <th style={{textAlign: 'center'}}>{newTotal} тнг</th>                        
+                        <th></th>
                     </tr>
                 </tfoot>
             </table>
