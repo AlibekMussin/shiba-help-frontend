@@ -52,7 +52,7 @@ const ProductList = () =>{
         (async () => {
             try {
                 setIsLoading(true);
-                const response = await fetch(backUrl+'/api/products?populate=*');
+                const response = await fetch(backUrl+'/api/products?populate=*&filters[$and][0][is_active][$eq]=true');
                 const jsonData = await response.json();
                 if (!cleanup) {
                     console.log(jsonData.data);
