@@ -122,6 +122,15 @@ const OrderList = (state) => {
                         <tbody>{
                                 data.map((item) => {
                                     let total = 0;
+                                    let status_norm = 'Ожидает исполнения';
+                                    if (item.attributes.state=='DONE')
+                                    {
+                                        status_norm = 'Исполнена';
+                                    }
+                                    if (item.attributes.state=='DECLINED')
+                                    {
+                                        status_norm = 'Отказано в исполнении';
+                                    }
                                     return (
                                     <tr>
                                         <td>{item.attributes.order}</td>
@@ -135,7 +144,9 @@ const OrderList = (state) => {
                                                     <th>Товар</th>
                                                     <th>Цена</th>
                                                     <th>Кол-во</th>
-                                                </thead>{                                                
+                                                </thead>
+                                                <tbody>
+                                                {                                                
                                                 item.attributes.products.map((product) => {
                                                     total+=product.attributes.price*product.quantity;
                                                     return (<tr>
@@ -145,9 +156,10 @@ const OrderList = (state) => {
                                                         <td>{product.quantity}</td>
                                                     </tr>)
                                                     })}
+                                                    </tbody>
                                             </table>
                                         </td>
-                                        <td>{item.attributes.state}</td>
+                                        <td>{status_norm}</td>
                                         <th>{total}</th>
                                         <td>
                                             <button onClick={() => handleOpenModal(item)}>Завершить заказ</button>
