@@ -140,10 +140,12 @@ const OrderList = (state) => {
                                         <td>
                                             <table className="orders-table">
                                                 <thead>
-                                                    <th></th>
-                                                    <th>Товар</th>
-                                                    <th>Цена</th>
-                                                    <th>Кол-во</th>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>Товар</th>
+                                                        <th>Цена</th>
+                                                        <th>Кол-во</th>
+                                                    </tr>
                                                 </thead>
                                                 <tbody>
                                                 {                                                
