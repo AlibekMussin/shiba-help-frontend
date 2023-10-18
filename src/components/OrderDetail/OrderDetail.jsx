@@ -129,9 +129,13 @@ const OrderDetail = (state) => {
             const data_for_bot = {
                 "order": tnxJson.data.attributes.order,
                 "status":"OK",
+                "last_name": lastName,
+                "first_name": firstName,
+                "phone_number": phoneNumber,
                 "products": updatedDataFromStore,
                 queryId,
             };
+            
             
             fetch('https://bothelp.shiba.kz/make-order', {
                 method: 'POST',

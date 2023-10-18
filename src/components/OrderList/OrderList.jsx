@@ -119,7 +119,7 @@ const OrderList = (state) => {
                             </tr>
                         </thead>
 
-                        <tbody>{
+                        <tbody>{(data.length)?
                                 data.map((item) => {
                                     let total = 0;
                                     let status_norm = 'Ожидает исполнения';
@@ -168,7 +168,7 @@ const OrderList = (state) => {
                                         </td>
                                     </tr>
                                 );
-                            })
+                            }) :""
                             }
                         </tbody>
                     </table>
