@@ -47,9 +47,9 @@ const ProductItem = ({product, className, onAdd}) => {
             <FullScreenProduct imageUrl={product.image} onClose={closeFullScreen} />
             )} */}
             <div className={'title'}>{product.attributes.title}</div>
-            <div className={'description'}>{product.attributes.description}</div>
+            {/* <div className={'description'}>{product.attributes.description}</div> */}
             <div className={'price'}>
-                <span>Стоимость: <b>{product.attributes.price} тнг</b></span>
+                <span><b>{product.attributes.price} тнг</b></span>
             </div>
             
             <div className="buttons_div">
