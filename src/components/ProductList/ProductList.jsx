@@ -98,9 +98,9 @@ const ProductList = () =>{
         // console.log(newItems);
 
         if (newItems.length === 0) {
-            setIsButtonDisabled(false);
-        } else {
             setIsButtonDisabled(true);
+        } else {
+            setIsButtonDisabled(false);            
             const goodsCount = newItems.length;
             console.log(`Оформить заказ (${goodsCount} тов. по цене: ${getTotalPrice(newItems)} тнг)`);
             setOrderButtonLabel(`Оформить заказ (${goodsCount} тов. по цене: ${getTotalPrice(newItems)} тнг)`);
