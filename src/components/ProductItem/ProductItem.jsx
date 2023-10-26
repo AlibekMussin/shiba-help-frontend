@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Button from "../Button/Button";
 import './ProductItem.css';
-// import FullScreenProduct from '../FullScreenProduct/FullScreenProduct';
-// import ProductDetail from '../ProductDetail/ProductDetail';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faCartPlus } from '@fortawesome/free-solid-svg-icons';
@@ -48,27 +46,21 @@ const ProductItem = ({product, className, onAdd}) => {
                 backgroundRepeat: 'no-repeat'
             }}
             ></div>
-            {/* <img className={'img'} src={backUrl+product.attributes.photos.data[0].attributes.url}  onClick={openFullScreen}/> */}
-            {/* {isFullScreen && (
-            <FullScreenProduct imageUrl={product.image} onClose={closeFullScreen} />
-            )} */}
-            <div className={'title'}>{product.attributes.title}</div>
-            {/* <div className={'description'}>{product.attributes.description}</div> */}
+            
+            <div className={'title'}>{product.attributes.title}</div>            
             <div className={'price'}>
                 <span><b>{product.attributes.price} тнг</b></span>
             </div>
-            
-            <div className="buttons_div">
+            {product.attributes.count > 0 ?            
+            <div className="buttons_div">                
                 
                 <Button className={'view-btn'} onClick={() => seeProduct(product.id)}>
-                    <FontAwesomeIcon icon={faEye} />
-                    {/* в корзину */}
+                    <FontAwesomeIcon icon={faEye} />                    
                 </Button>
                 <Button className={buttonClassName} onClick={onAddHandler}>
-                    <FontAwesomeIcon icon={faCartPlus} />
-                    {/* в корзину */}
+                    <FontAwesomeIcon icon={faCartPlus} />                    
                 </Button>
-            </div>
+            </div>: <div><h6>Нет в наличии</h6></div>}
         </div>
     );
 };
