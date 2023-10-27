@@ -99,6 +99,7 @@ const OrderDetail = (state) => {
         let tg_user_id = '16712';
         if (user?.id)
             tg_user_id = user?.id;
+
         const data = {
           last_name: lastName,
           first_name: firstName,
@@ -106,7 +107,7 @@ const OrderDetail = (state) => {
           tg_user_id: tg_user_id,
           products: JSON.stringify(updatedDataFromStore)
         }; 
-        console.log('1');
+        console.log('order sended');
     
         fetch(backUrl+'/api/orders', {
           method: 'POST',
@@ -144,9 +145,9 @@ const OrderDetail = (state) => {
                 },
                 body: JSON.stringify(data_for_bot)
                 })
-                .then(response_bot => {
-                    if (!response_bot.ok) {
-                    throw new Error('Request failed');
+                .then(response_bot => {                    
+                    if (!response_bot.ok) {            
+                        throw new Error('Request failed');
                     }
                     // Additional response handling, if necessary
                     console.log('Request successful');
@@ -166,17 +167,19 @@ const OrderDetail = (state) => {
     const [quantity, setQuantity] = useState(1);
 
     const incrementQuantity = (productId) => {
+        const max = products.find(product => product.id === productId).attributes.count;
         setQuantities((prevQuantities) => ({
           ...prevQuantities,
-          [productId]: (prevQuantities[productId] || 1) + 1,
+          [productId]: Math.min((prevQuantities[productId] || 1) + 1, max),
         }));
       };
     
     const decrementQuantity = (productId) => {
-    setQuantities((prevQuantities) => ({
-        ...prevQuantities,
-        [productId]: Math.max((prevQuantities[productId] || 1) - 1, 1),
-    }));
+        const max = products.find(product => product.id === productId).attributes.maxQuantity; 
+        setQuantities((prevQuantities) => ({
+            ...prevQuantities,
+            [productId]: Math.max((prevQuantities[productId] || 1) - 1, 1),
+        }));
     };
 
 
