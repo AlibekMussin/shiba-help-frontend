@@ -38,14 +38,14 @@ const ProductItem = ({product, className, onAdd}) => {
 
     return (
         <div className={'product ' + className}>
-            <div className={'img_div'} 
+            {product.attributes.photos.data ? <div className={'img_div'} 
             style={{
                 backgroundImage:'url('+backUrl+product.attributes.photos.data[0].attributes.url+')', 
                 backgroundSize: 'contain',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat'
             }}
-            ></div>
+            ></div>:<div className={'img_div'} >No photo</div>}
             
             <div className={'title'}>{product.attributes.title}</div>            
             <div className={'price'}>
